@@ -6,15 +6,31 @@ class Auth extends CI_Controller {
     public function __construct()
 	{
 	    parent::__construct();
-	    $this->load->library('implementJwt');
+	    header('Access-Control-Allow-Origin: *'); 
+		header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS'); 
+		header('Access-Control-Allow-Headers: X-Requested-With, content-type, X-Token, x-token');
+
+		$this->load->library('implementJwt');
+	    $this->load->model('Auth_model');
 	}   
 	public function login()
 	{
-		$objJwt = new implementJwt();
+		$postdata = file_get_contents("php://input");
+		
+		if(isset($postdata) && !empty($postdata)){
 
-		$tokenData['name'] = 'vinayak';
-		$jwtToken = $objJwt->generateToken($tokenData);
-		echo json_encode(array('token' => $jwtToken));
+			$arrUserData 	= json_decode($postdata, true);
+			$jwtToken		= '';
+			$arrUserInfo 	= $this->Auth_model->checkIfValidUser($arrUserData);
+			
+			if(is_array($arrUserInfo) && count($arrUserInfo)>0){
+				$objJwt 	= new implementJwt();
+				$jwtToken 	= $objJwt->generateToken($arrUserInfo);
+			}
+			
+			echo json_encode(array('token' => $jwtToken));	
+		}
+		
 	}
 	public function getTokenData()
 	{

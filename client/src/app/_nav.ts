@@ -5,7 +5,23 @@ export const navItems: INavData[] = [
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer'
-  }
+  },
+  {
+    name: 'Hub',
+    url: '/base',
+    icon: 'icon-puzzle',
+    children: [
+      {
+        name: 'Hub List',
+        url: '/base/cards',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Add Hub',
+        url: '/base/cards',
+        icon: 'icon-puzzle'
+      }]
+  },
   /*{
     title: true,
     name: 'Theme'
