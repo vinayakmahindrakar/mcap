@@ -7,9 +7,18 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
 
 	private _authUrl = 'http://localhost/research/mcap/server/auth/login';
+
 	constructor(private http: HttpClient) { }
 
 	loginUser(user){
 		return this.http.post<any>(this._authUrl, user);
+	}
+
+	isLoggedIn(){
+		return !!localStorage.getItem('token');
+	}
+
+	getToken(){
+		return localStorage.getItem('token');
 	}
 }

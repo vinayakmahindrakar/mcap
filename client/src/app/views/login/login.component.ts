@@ -10,7 +10,9 @@ export class LoginComponent {
 	
 	userData = {};
 
-	constructor(private _auth: AuthService, private _router: Router){}
+	constructor(private _auth: AuthService, private _router: Router){
+
+	}
 	
 	ngOnInit(){}
 

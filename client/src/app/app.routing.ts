@@ -20,11 +20,6 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'dashboard',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  {
     path: '404',
     component: P404Component,
     data: {
@@ -66,6 +61,7 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {

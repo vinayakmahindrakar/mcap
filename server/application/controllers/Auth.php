@@ -6,9 +6,10 @@ class Auth extends CI_Controller {
     public function __construct()
 	{
 	    parent::__construct();
+	    
 	    header('Access-Control-Allow-Origin: *'); 
 		header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS'); 
-		header('Access-Control-Allow-Headers: X-Requested-With, content-type, X-Token, x-token');
+		header('Access-Control-Allow-Headers: X-Requested-With, Authorization, content-type, X-Token, x-token');
 
 		$this->load->library('implementJwt');
 	    $this->load->model('Auth_model');

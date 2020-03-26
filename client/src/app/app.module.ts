@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -44,6 +44,7 @@ import { ChartsModule } from 'ng2-charts';
 
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
   imports: [
@@ -60,7 +61,7 @@ import { AuthService } from './services/auth.service';
     TabsModule.forRoot(),
     ChartsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule 
   ],
   declarations: [
     AppComponent,
@@ -70,7 +71,12 @@ import { AuthService } from './services/auth.service';
     LoginComponent,
     RegisterComponent
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [AuthGuard, AuthService, 
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
