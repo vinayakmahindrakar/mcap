@@ -8,8 +8,9 @@ import { Router } from '@angular/router'
 })
 export class LoginComponent { 
 	
-	userData = {};
-
+	userData = {username:"", password:""};
+	error = '';
+	
 	constructor(private _auth: AuthService, private _router: Router){
 
 	}
@@ -17,12 +18,23 @@ export class LoginComponent {
 	ngOnInit(){}
 
 	login(){
-		this._auth.loginUser(this.userData).subscribe(
-			res => {
-				localStorage.setItem('token', res.token);
-				this._router.navigate(['/dashboard']);
-			},
-			err => console.log(err)
-		);
+		if(this.userData.username=='' || this.userData.password=='')
+		{
+			return this.error = 'Enter Username and Password';
+		}else{
+			this._auth.loginUser(this.userData).subscribe(
+				res => {
+					
+					if(res.msg=='success'){
+						localStorage.setItem('token', res.token);
+						this._router.navigate(['/dashboard']);
+					}else{
+						this.error = 'Invalid Username or Password';
+					}
+				},
+				err => console.log(err)
+			);
+		}
+		
 	}
 }

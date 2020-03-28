@@ -1,3 +1,6 @@
+<style type="text/css">
+  .err_msg{width: 100%;margin-top: .25rem;font-size: 80%;color: #f86c6b;}
+</style>
 <div class="app-body">
   <main class="main d-flex align-items-center">
     <div class="container">
@@ -13,14 +16,17 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="icon-user"></i></span>
                     </div>
-                    <input [(ngModel)]="userData.username" name="username" type="text" class="form-control" placeholder="Username" autocomplete="username" required>
+                    <input [(ngModel)]="userData.username" name="username" type="text" class="form-control" placeholder="Username" autocomplete="username" required >
                   </div>
+                  
                   <div class="input-group mb-4">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="icon-lock"></i></span>
                     </div>
                     <input [(ngModel)]="userData.password" type="password" name="password" class="form-control" placeholder="Password" autocomplete="current-password" required>
+                    <div class="err_msg">{{error}}</div>
                   </div>
+                  
                   <div class="row">
                     <div class="col-6">
                       <button type="button" class="btn btn-primary px-4" (click)="login();">Login</button>
